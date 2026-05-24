@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SmartKey BLE — Acesso</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="Smartkey-BLE/smartkey-ble-frontend/css/style.css">
+</head>
+<body>
+
+<div class="login-page">
+  <div class="login-glow"></div>
+  <div class="login-box">
+
+    <div class="login-logo">Smart<br><span>Key</span><br>BLE</div>
+    <div class="login-badge"><i class="fa-solid fa-bolt"></i>Mais com Menos · Localiza</div>
+
+    <label class="login-label" for="senha-input">Senha de acesso</label>
+    <input
+      id="senha-input"
+      class="login-input"
+      type="password"
+      placeholder="••••••••"
+      autocomplete="current-password"
+      autofocus
+    />
+    <p class="login-hint">
+      <i class="fa-solid fa-circle-info"></i>
+      Utilize a matrícula do autor do projeto.
+    </p>
+    <button class="login-btn" id="login-btn" onclick="handleLogin()">
+      Entrar
+      <span class="intro-cta-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+    </button>
+
+    <div class="login-error" id="login-error">
+      <i class="fa-solid fa-circle-exclamation" style="margin-right:6px"></i>
+      Senha incorreta. Tente novamente.
+    </div>
+
+    <div class="login-footer">Desenvolvido por Yuri Santos · Auxiliar de Operações</div>
+  </div>
+</div>
+
+<script src="Smartkey-BLE/smartkey-ble-frontend/js/utils.js"></script>
+<script src="Smartkey-BLE/smartkey-ble-frontend/js/auth.js"></script>
+<script>
+  document.getElementById('senha-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleLogin();
+  });
+</script>
+</body>
+</html>

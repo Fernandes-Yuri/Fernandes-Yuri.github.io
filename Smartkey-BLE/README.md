@@ -1,6 +1,7 @@
 # SmartKey BLE — Apresentação Interativa
 
-Apresentação de 17 slides sobre a solução **SmartKey BLE** para gestão digital de chaves de frota — Programa Mais com Menos · 
+Apresentação de 17 slides sobre a solução **SmartKey BLE** para gestão digital de chaves de frota — Programa Mais com Menos · Localiza.
+
 Projeto refatorado em arquitetura **frontend / backend** separados, com autenticação JWT e conteúdo protegido.
 
 ---
