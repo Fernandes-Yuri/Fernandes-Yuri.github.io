@@ -618,13 +618,10 @@ function goTo(n) {
   currentSlide = n;
   slides[currentSlide].classList.add('active');
 
-  // Persiste posição para sobreviver a F5
-  // Só salva a partir do slide 1 — índice 0 significa intro ainda não vista
-  if (currentSlide > 0) {
-    sessionStorage.setItem('smartkey_slide', currentSlide);
-  } else {
-    sessionStorage.removeItem('smartkey_slide');
-  }
+
+
+  // Atualiza o hash da URL para persistir posição no F5
+  window.location.hash = currentSlide;
 
   const label = slides[currentSlide].dataset.label || `Slide ${n + 1}`;
   document.getElementById('hdr-counter').textContent = `${currentSlide + 1} / ${totalSlides}`;
@@ -698,18 +695,17 @@ window.animateKill = function() {
 // ──────────────────────────────────────────────
 
 function initIntroScreen() {
-  const introBtn   = document.getElementById('intro-cta-btn');
-  const savedSlide = sessionStorage.getItem('smartkey_slide');
+  const introBtn = document.getElementById('intro-cta-btn');
+  const hash     = parseInt(window.location.hash.replace('#', ''), 10);
 
-  // Se já havia apresentação em andamento (reload / F5), pula a intro
-  // e restaura o slide exato onde o usuário estava
-  if (savedSlide !== null) {
+  // Se há um hash válido maior que 0, a apresentação já havia começado
+  // Pula a intro e restaura o slide — os dados já foram renderizados neste ponto
+  if (!isNaN(hash) && hash > 0) {
     const intro = document.getElementById('intro-screen');
     const app   = document.getElementById('app');
     intro.style.display = 'none';
     app.classList.add('visible');
-    const idx = parseInt(savedSlide, 10);
-    if (!isNaN(idx) && idx > 0) goTo(idx);
+    goTo(hash);
     return;
   }
 
