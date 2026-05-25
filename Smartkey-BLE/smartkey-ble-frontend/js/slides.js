@@ -618,6 +618,9 @@ function goTo(n) {
   currentSlide = n;
   slides[currentSlide].classList.add('active');
 
+  // Persiste posição para sobreviver a F5
+  sessionStorage.setItem('smartkey_slide', currentSlide);
+
   const label = slides[currentSlide].dataset.label || `Slide ${n + 1}`;
   document.getElementById('hdr-counter').textContent = `${currentSlide + 1} / ${totalSlides}`;
   document.getElementById('hdr-label').textContent   = label;
@@ -690,7 +693,21 @@ window.animateKill = function() {
 // ──────────────────────────────────────────────
 
 function initIntroScreen() {
-  const introBtn = document.getElementById('intro-cta-btn');
+  const introBtn   = document.getElementById('intro-cta-btn');
+  const savedSlide = sessionStorage.getItem('smartkey_slide');
+
+  // Se já havia apresentação em andamento (reload / F5), pula a intro
+  // e restaura o slide exato onde o usuário estava
+  if (savedSlide !== null) {
+    const intro = document.getElementById('intro-screen');
+    const app   = document.getElementById('app');
+    intro.style.display = 'none';
+    app.classList.add('visible');
+    const idx = parseInt(savedSlide, 10);
+    if (!isNaN(idx) && idx > 0) goTo(idx);
+    return;
+  }
+
   if (introBtn) introBtn.addEventListener('click', startPresentation);
 }
 
