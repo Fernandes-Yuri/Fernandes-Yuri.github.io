@@ -619,7 +619,12 @@ function goTo(n) {
   slides[currentSlide].classList.add('active');
 
   // Persiste posição para sobreviver a F5
-  sessionStorage.setItem('smartkey_slide', currentSlide);
+  // Só salva a partir do slide 1 — índice 0 significa intro ainda não vista
+  if (currentSlide > 0) {
+    sessionStorage.setItem('smartkey_slide', currentSlide);
+  } else {
+    sessionStorage.removeItem('smartkey_slide');
+  }
 
   const label = slides[currentSlide].dataset.label || `Slide ${n + 1}`;
   document.getElementById('hdr-counter').textContent = `${currentSlide + 1} / ${totalSlides}`;
